@@ -1,0 +1,191 @@
+<mat-card class="order-form-card">
+  <mat-card-header>
+    <mat-card-title>我的訂單</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+      <!-- 商品類型輸入框 (使用 mat-form-field) -->
+      <mat-form-field appearance="fill">
+        <mat-label>商品 ID:</mat-label>
+        <!-- 使用 #productIdInput 模板引用變數來追蹤輸入狀態 -->
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="newOrderItem.productId"
+          name="productId"
+          required min="1"
+          #productIdInput="ngModel"
+          (ngModelChange)="onProductIdChange($event)"> <!-- *** 添加此行 *** -->
+        <!-- 顯示錯誤訊息 -->
+        <mat-error *ngIf="productIdInput.invalid && productIdInput.touched">
+          請輸入有效的商品 ID。
+        </mat-error>
+      </mat-form-field>
+
+      <!-- *** 新增：圖片預覽區域 *** -->
+      <div *ngIf="currentProductImageUrl" class="image-preview-container">
+        <img [src]="currentProductImageUrl" alt="商品圖片預覽" class="order-item-image">
+        <p>名稱: {{ currentProductName }}</p>
+      </div>
+      <!-- *** 結束圖片預覽區域 *** -->
+
+
+      <!-- 商品數量輸入框 (使用 mat-form-field) -->
+      <mat-form-field appearance="fill">
+        <mat-label>商品數量:</mat-label>
+        <!-- 加入 min="1" 確保數量不小於 1 -->
+        <!-- 使用 #quantityInput 模板引用變數來追蹤輸入狀態 -->
+        <input matInput type="number" [(ngModel)]="newOrderItem.quantity" name="quantity" required min="1" #quantityInput="ngModel">
+        <!-- 顯示錯誤訊息 -->
+        <mat-error *ngIf="quantityInput.invalid && quantityInput.touched">
+          請輸入有效數量（必須大於 0）。
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <!-- 新增一個按鈕來添加項目到清單 -->
+        <button mat-raised-button color="accent" type="button" (click)="addItemToList()">
+          手動新增項目
+        </button>
+
+        <!-- 匯入購物車按鈕 -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="loadCartItemsFromService()"
+          *ngIf="cartService.getItems().length > 0">
+          匯入購物車內容 ({{ cartService.getCartItemCount() }}項)
+        </button>
+      </div>
+
+      <br>
+
+
+      <!-- 顯示已加入的購物項目清單 (buyItemList) -->
+      <div *ngIf="buyItemList.length > 0" class="item-list-container">
+        <h3>即將購買項目:</h3>
+        <ul>
+          <!-- 使用 let i = index 來獲取當前項目的索引 -->
+          <li *ngFor="let item of buyItemList; let i = index">
+
+            <!-- *** 新增圖片顯示 *** -->
+            <img *ngIf="item.image_url" [src]="item.image_url" alt="{{ item.product_Name }}" class="order-item-image">
+
+            商品 ID: {{ item.productId }}, 數量: {{ item.quantity }}
+            <!-- 添加刪除按鈕 -->
+            <button mat-icon-button color="warn" (click)="removeItemFromOrderList(i)">
+              <!-- 您需要一個 Material Icon，例如 mat-icon -->
+              <mat-icon>delete</mat-icon>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- 表單提交與操作按鈕 -->
+      <div class="submit-actions">
+        <button mat-raised-button color="primary" type="submit" >
+          購買!!
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="resetForm(myForm)">
+          取消/清空列表
+        </button>
+        <button mat-raised-button color="default" type="button" (click)="getOrder()">
+          查看訂單歷史
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+
+<!-- Mat-Table 區域 (保持不變) -->
+<div class="orders-table-container">
+  <!-- ... (Mat-Table 相關的 HTML 碼) ... -->
+</div>
+
+
+
+
+
+
+<br><hr><br>
+
+
+
+
+
+
+
+
+<!-- Mat-Table 區域 -->
+<div class="orders-table-container">
+  <h2>歷史訂單明細</h2>
+
+  <mat-table [dataSource]="flattenedData" class="mat-elevation-z8 mat-table">
+
+    <!-- 訂單 ID 欄位 -->
+    <ng-container matColumnDef="order_id">
+      <mat-header-cell *matHeaderCellDef> 訂單 ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.order_id}} </mat-cell>
+    </ng-container>
+
+    <!-- 使用者 ID 欄位 -->
+    <ng-container matColumnDef="user_id">
+      <mat-header-cell *matHeaderCellDef> 使用者 ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.user_id}} </mat-cell>
+    </ng-container>
+
+    <!-- 總金額欄位 -->
+    <ng-container matColumnDef="totalAmount">
+      <mat-header-cell *matHeaderCellDef> 總金額 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.totalAmount}} </mat-cell>
+    </ng-container>
+
+    <!-- 建立日期欄位 -->
+    <ng-container matColumnDef="create_date">
+      <mat-header-cell *matHeaderCellDef> 建立日期 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.create_date}} </mat-cell>
+    </ng-container>
+
+    <!-- *** 新增的商品明細欄位 *** -->
+
+    <!-- 項目 ID 欄位 -->
+    <ng-container matColumnDef="item_id">
+      <mat-header-cell *matHeaderCellDef> 項目 ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.item_id}} </mat-cell>
+    </ng-container>
+
+    <!-- 商品名稱欄位 -->
+    <ng-container matColumnDef="productName">
+      <mat-header-cell *matHeaderCellDef> 商品名稱 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.productName}} </mat-cell>
+    </ng-container>
+
+    <!-- 數量欄位 -->
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef> 數量 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+    </ng-container>
+
+    <!-- 價格欄位 -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> 單價 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+    </ng-container>
+
+    <!-- Header Row Definition -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <!-- Data Row Definition -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!-- 沒有資料時顯示的訊息 -->
+  <p *ngIf="!flattenedData || flattenedData.length === 0" class="no-orders-message">
+    目前沒有歷史訂單資料或正在載入...
+  </p>
+</div>

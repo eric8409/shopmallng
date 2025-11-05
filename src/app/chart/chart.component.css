@@ -1,0 +1,9 @@
+.chart-container {
+  width: 80%; /* 調整圖表寬度 */
+  height: 500px; /* 調整圖表高度 */
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background-color: white;
+}

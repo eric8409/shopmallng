@@ -1,0 +1,46 @@
+<form class="register-container" #myForm="ngForm" (ngSubmit)="onSubmit()">
+
+  <p>歡迎註冊:</p>
+
+  <!-- Email 輸入欄位 -->
+  <mat-form-field appearance="fill">
+    <mat-label>Email: <span class="required"></span></mat-label>
+    <input
+      matInput
+      placeholder="例如: test1@gmail.com"
+      [(ngModel)]="formData.email"
+      name="email"
+      required
+      email
+      #emailInput="ngModel"
+    /> <!-- <<-- 確保這裡有斜線 / -->
+    <mat-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+      <span *ngIf="emailInput.errors?.['required']">**必填**</span>
+      <span *ngIf="emailInput.errors?.['email']">請輸入有效的 Email 格式。</span>
+    </mat-error>
+  </mat-form-field>
+
+  <br/> <!-- <<-- 確保這裡有斜線 / -->
+
+  <!-- 密碼輸入欄位 -->
+  <mat-form-field appearance="fill">
+    <mat-label>Password: <span class="required"></span></mat-label>
+    <input
+      matInput
+      type="password"
+      [(ngModel)]="formData.password"
+      name="password"
+      required
+      #passwordInput="ngModel"
+    /> <!-- <<-- 確保這裡有斜線 / -->
+    <mat-error *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+      <span *ngIf="passwordInput.errors?.['required']">**必填**</span>
+    </mat-error>
+  </mat-form-field>
+
+  <br/> <!-- <<-- 確保這裡有斜線 / -->
+
+  <button  mat-raised-button color="primary" type="submit">註冊</button>
+  <button  mat-raised-button color="primary" type="button"  (click)="resetForm(myForm)">取消</button>
+
+</form>

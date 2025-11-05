@@ -1,0 +1,40 @@
+/* 註冊表單的樣式，確保所有文字預設為標準粗細 */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* 元素間的間距 */
+  width: 100%;
+  max-width: 500px; /* 最大寬度 */
+
+  /* >>>>> 將容器內所有文字預設字重設定為 normal <<<<< */
+  font-weight: normal;
+}
+
+/* 放大標題文字 */
+.register-container p {
+  font-size: 25px; /* 放大字體 */
+
+  /* >>>>> 將標題字體從粗體 (bold) 改為 normal <<<<< */
+  font-weight: normal; /* 設定為標準粗細 */
+
+  text-align: center;
+  color: #3f51b5;
+  margin-bottom: 20px; /* 增加底部間距 */
+}
+
+/* 放大表單欄位 */
+.register-container mat-form-field {
+  font-size: 16px; /* 放大表單欄位的字體 */
+}
+
+/* 放大按鈕 */
+.register-container button {
+  font-size: 15px; /* 放大按鈕字體 */
+  padding: 10px 20px; /* 增加按鈕內邊距 */
+  height: 40px; /* 設定按鈕高度 */
+
+  /* >>>>> 確保按鈕文字也是標準粗細 (如果 Material UI 預設是粗體) <<<<< */
+  font-weight: normal;
+}
+
+

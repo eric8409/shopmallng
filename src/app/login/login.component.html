@@ -1,0 +1,59 @@
+<div class="split-container">
+  <!-- 登入面板 -->
+  <div class="login-panel">
+    <form class="login-container" #myForm="ngForm" (ngSubmit)="onSubmit()">
+      <p>歡迎登入:</p>
+
+      <!-- Email 輸入欄位 -->
+      <mat-form-field appearance="fill">
+        <mat-label>Email: <span class="required"></span></mat-label>
+        <input
+          matInput
+          placeholder="例如: test1@gmail.com"
+          [(ngModel)]="formData.email"
+          name="email"
+          required
+          email
+          #emailInput="ngModel"
+          id="email"
+        >
+        <!-- 增加提示訊息 -->
+        <mat-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+          <!-- 檢查特定錯誤類型 -->
+          <span *ngIf="emailInput.errors?.['required']">**必填**</span>
+          <span *ngIf="emailInput.errors?.['email']">請輸入有效的 Email 格式。</span>
+        </mat-error>
+      </mat-form-field>
+
+      <br>
+
+      <!-- 密碼輸入欄位 -->
+      <mat-form-field appearance="fill">
+        <mat-label>Password: <span class="required"></span></mat-label>
+        <input
+          matInput
+          type="password"
+          [(ngModel)]="formData.password"
+          name="password"
+          required
+          #passwordInput="ngModel"
+          id="password"
+        >
+        <!-- 增加提示訊息 -->
+        <mat-error *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+          <span *ngIf="passwordInput.errors?.['required']">**必填**</span>
+        </mat-error>
+      </mat-form-field>
+
+      <br>
+
+      <button mat-raised-button color="primary" type="submit">登入</button>
+      <button mat-raised-button color="primary" type="button" (click)="resetForm(myForm)">取消</button>
+    </form>
+  </div>
+
+  <!-- 註冊面板 -->
+  <div class="register-panel">
+    <app-register></app-register>
+  </div>
+</div>

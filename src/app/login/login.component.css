@@ -1,0 +1,57 @@
+/* 父容器，用於並排顯示 */
+.split-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  min-height: 100vh; /* 確保佔滿整個視窗高度 */
+  gap: 50px; /* 兩個面板之間的間距 */
+  flex-wrap: wrap; /* 在小螢幕時允許換行 */
+}
+
+/* 登入與註冊面板的通用樣式 */
+.login-panel, .register-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: #fff; /* 白色背景 */
+  border-radius: 8px; /* 圓角 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 輕微陰影 */
+  width: 100%;
+  max-width: 400px; /* 最大寬度 */
+
+  /* >>>>> 將所有文字預設字重改為 normal 或 lighter <<<<< */
+  font-weight: normal;
+}
+
+/* 登入表單的樣式 */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 元素間的間距 */
+  width: 100%;
+}
+
+.login-container p {
+  font-size: 24px;
+
+  /* >>>>> 將標題字體從粗體改為 normal 或 400 <<<<< */
+  font-weight: normal; /* 或使用數字 400 */
+
+  text-align: center;
+  color: #3f51b5;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}
+
+button[type="button"] {
+  margin-top: 10px;
+}

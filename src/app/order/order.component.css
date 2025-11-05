@@ -1,0 +1,102 @@
+/* orders.component.css */
+
+/* 設定整個表格容器的樣式 */
+.orders-table-container {
+  overflow-x: auto; /* 在小螢幕上允許水平滾動 */
+  margin-top: 20px;
+}
+
+/* 設定 mat-table 的基礎樣式 */
+.mat-table {
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden; /* 確保圓角效果生效 */
+}
+
+/* 設定表頭單元格的樣式 */
+.mat-header-cell {
+  background-color: #3f51b5; /* 使用 Material Design 主要藍色 */
+  color: #fff; /* 白色文字 */
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 設定資料列的樣式 */
+.mat-row {
+  background-color: #fff; /* 白色背景 */
+  transition: background-color 0.3s ease;
+}
+
+/* 隔行換色，提升可讀性 */
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5; /* 淺灰色 */
+}
+
+/* 滑鼠懸停在資料列上時的顏色效果 */
+.mat-row:hover {
+  background-color: #bbdefb; /* 淺藍色 */
+}
+
+/* 設定資料單元格的樣式 */
+.mat-cell {
+  color: #333; /* 深灰色文字 */
+  font-size: 13px;
+}
+
+/* 定義特定欄位的樣式（可選） */
+/* 例如，讓 ID 欄位靠右對齊 */
+.mat-column-order_id, .mat-column-item_id {
+  text-align: right;
+}
+
+/* 確保表格內容在卡片內有足夠的空間 */
+mat-card-content {
+  padding: 20px;
+}
+
+.order-form-card {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+mat-form-field {
+  width: 100%; /* 讓輸入框佔滿整行 */
+  margin-bottom: 10px;
+}
+
+.form-actions button, .submit-actions button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.item-list-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.order-item-image {
+  width: 50px; /* 圖片寬度 */
+  height: 50px; /* 圖片高度 */
+  object-fit: cover; /* 確保圖片不被拉伸 */
+  margin-right: 10px;
+  border-radius: 4px; /* 圓角效果 */
+}
+
+/* 移除無序列表的預設樣式 */
+.item-list-container ul {
+  list-style-type: none; /* 將項目符號設置為無 */
+  padding: 0;            /* 移除預設的左側內邊距，使列表對齊 */
+  margin: 0;             /* 移除預設的外邊距 */
+}
+
+/* 調整列表項目的間距，使其看起來更整齊 */
+.item-list-container li {
+  margin-bottom: 10px;   /* 增加項目之間的垂直間距 */
+  /* 如果您導入了圖片，這裡可以確保垂直對齊 */
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,20 @@
+<nav>
+  <a routerLink="/products" routerLinkActive="router-link-active">商品列表</a>
+  <a routerLink="/chart" routerLinkActive="router-link-active">庫存圖表</a>
+  <a routerLink="/carts" routerLinkActive="router-link-active">購物車</a>
+
+  <!-- 僅在用戶登入時顯示 -->
+  <ng-container *ngIf="currentUserId">
+    <a routerLink="/orders" routerLinkActive="router-link-active">我的訂單</a>
+  </ng-container>
+
+  <span class="spacer"></span>
+
+  <!-- 僅在用戶未登入時顯示「登入」按鈕 -->
+  <a routerLink="/login" *ngIf="!currentUserId">登入</a>
+
+  <!-- 僅在用戶登入時顯示「登出」按鈕 -->
+  <a (click)="logout()" *ngIf="currentUserId && !shouldHideLogout">登出</a>
+</nav>
+
+<router-outlet></router-outlet>

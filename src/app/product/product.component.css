@@ -1,0 +1,171 @@
+.chart-container {
+  width: 80%; /* 控制圖表寬度 */
+  height: 400px; /* 控制圖表高度 */
+  margin: 20px auto; /* 置中並增加邊距 */
+}
+
+
+  /* 設定整個表格的樣式 */
+
+  .product-table {
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden; /* 確保圓角效果在表格上生效 */
+  }
+
+  /* 設定表頭為深藍色 */
+
+  .product-table .mat-header-cell {
+    background-color: #1565C0; /* 深藍色 */
+    color: #ffffff; /* 白色文字 */
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  /* 設定資料列的樣式 */
+
+  .product-table .mat-row {
+    background-color: #f0f8ff; /* 淺藍色 */
+  }
+
+  /* 設定滑鼠滑過資料列時的背景色 */
+
+  .product-table .mat-row:hover {
+    background-color: #bbdefb; /* 更深的藍色 */
+  }
+
+  /* 隔行換色，使用更淺的藍色 */
+
+  .product-table .mat-row:nth-child(even) {
+    background-color: #e3f2fd; /* 非常淺的藍色 */
+  }
+
+  /* 設定單元格的樣式 */
+
+  .product-table .mat-cell {
+    color: #333333; /* 深灰色文字 */
+  }
+
+  /* 設定圖片的固定大小 */
+
+  .mat-table-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  /* 設定圖片所在欄位的寬度 */
+
+  .mat-column-image_url {
+    flex: 0 0 100px;
+    width: 100px;
+  }
+
+  /* 設定被選中列的顏色 */
+
+  .selected-row {
+    background-color: #64b5f6 !important; /* 你想要的顏色 */
+    color: #fff; /* 白色文字以增加可讀性 */
+  }
+
+  .form-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 控制欄位間距 */
+    align-items: center; /* 垂直置中對齊 */
+  }
+
+  /* 確保 mat-form-field 在小螢幕時也能自動換行 */
+  @media (max-width: 600px) {
+    .form-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .search-form {
+    margin-top: 50px; /* 這裡設定你希望往下移動的像素值 */
+  }
+
+  .large-button {
+    width: 120px; /* 設定按鈕的固定寬度 */
+    height: 50px; /* 設定按鈕的固定高度 */
+    min-width: unset; /* 移除 Angular Material 的預設最小寬度限制 */
+    font-size: 15px; /* 放大字體大小 */
+    padding: 10px 20px; /* 增加內邊距 */
+  }
+
+  /* 放大「加入購物車」按鈕的樣式 */
+
+  .add-to-cart-button {
+    height: 50px; /* 設定按鈕高度 */
+    font-size: 16px; /* 設定字體大小 */
+    min-width: unset; /* 移除 Material 的最小寬度限制 */
+    padding: 0 24px; /* 設定左右內邊距 */
+    white-space: nowrap; /* 防止文字換行 */
+  }
+
+  /* 確保按鈕與輸入框在 actions-cell 中對齊 */
+
+  .actions-cell {
+    display: flex;
+    align-items: center; /* 垂直居中對齊 */
+    gap: 10px; /* 控制元素之間的間距 */
+  }
+
+  /* 調整 mat-form-field 在這個容器中的樣式 */
+
+  .actions-cell mat-form-field {
+    width: 80px; /* 固定輸入框寬度 */
+  }
+
+
+  /* 放大「加入購物車」按鈕的樣式 */
+
+  .add-to-cart-button {
+    height: 50px; /* 設定按鈕高度 */
+    font-size: 10px; /* 設定字體大小 */
+    min-width: unset; /* 移除 Material 的最小寬度限制 */
+    padding: 0 24px; /* 設定左右內邊距 */
+    white-space: nowrap; /* 防止文字換行 */
+  }
+
+  /* 確保按鈕與輸入框在 actions-cell 中對齊 */
+
+  .actions-cell {
+    display: flex;
+    align-items: center; /* 垂直居中對齊 */
+    gap: 10px; /* 控制元素之間的間距 */
+  }
+
+  /* 調整 mat-form-field 在這個容器中的樣式 */
+
+  .actions-cell mat-form-field {
+    width: 80px; /* 固定輸入框寬度 */
+  }
+
+  /* 確保按鈕與輸入框在 actions-cell 中對齊 */
+
+  .actions-cell {
+    display: flex;
+    align-items: center; /* 垂直居中對齊 */
+    gap: 10px; /* 控制元素之間的間距 */
+  }
+
+  /* 調整 mat-form-field 在這個容器中的樣式，防止它佔用太多空間 */
+
+  .actions-cell mat-form-field {
+    width: 80px; /* 固定輸入框寬度 */
+  }
+
+  /* 放大「加入購物車」按鈕的樣式 */
+
+  .add-to-cart-button {
+    height: 50px; /* 設定按鈕高度 */
+    font-size: 16px; /* 設定字體大小 */
+    min-width: unset; /* 移除 Material 的最小寬度限制 */
+    padding: 0 14px; /* 設定左右內邊距 */
+    white-space: nowrap; /* 防止文字換行 */
+  }
+

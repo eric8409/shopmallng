@@ -1,0 +1,80 @@
+<div class="cart-container">
+  <h2>我的購物車</h2>
+
+  <!-- 如果購物車為空，顯示提示訊息 -->
+  <ng-container *ngIf="cartItems.length === 0">
+    <p class="empty-cart-message">您的購物車是空的。</p>
+  </ng-container>
+
+  <!-- 如果購物車有商品，顯示表格 -->
+  <ng-container *ngIf="cartItems.length > 0">
+    <mat-card>
+      <mat-card-content>
+        <!-- *** MAT-TABLE 開始 *** -->
+        <mat-table [dataSource]="cartItems" class="mat-elevation-z8">
+
+          <!-- 圖片欄位 -->
+          <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef> 圖片 </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+              <img [src]="item.image_url" alt="{{ item.product_Name }}" class="cart-item-image">
+            </mat-cell>
+          </ng-container>
+
+          <!-- ID 欄位 -->
+          <ng-container matColumnDef="product_id">
+            <mat-header-cell *matHeaderCellDef> 商品ID </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.product_Id }} </mat-cell>
+          </ng-container>
+
+          <!-- 商品名稱欄位 -->
+          <ng-container matColumnDef="product_Name">
+            <mat-header-cell *matHeaderCellDef> 商品名稱 </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.product_Name }} </mat-cell>
+          </ng-container>
+
+          <!-- 價格欄位 -->
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> 價格 </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.price | currency:'TWD':'symbol':'1.0-0' }} </mat-cell>
+          </ng-container>
+
+          <!-- 數量欄位 -->
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef> 數量 </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.quantity }} </mat-cell>
+          </ng-container>
+
+          <!-- 小計欄位 -->
+          <ng-container matColumnDef="subtotal">
+            <mat-header-cell *matHeaderCellDef> 小計 </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.price * item.quantity | currency:'TWD':'symbol':'1.0-0' }} </mat-cell>
+          </ng-container>
+
+          <!-- *** actions 欄位定義 (正確位置) *** -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> 操作 </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+              <button mat-icon-button color="warn" (click)="removeFromCart(item.product_Id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Row 定義 (正確位置) -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <!-- *** MAT-TABLE 結束 *** -->
+
+        <!-- 總計區塊 -->
+        <div class="cart-summary">
+          <h3>總計：{{ totalPrice | currency:'TWD':'symbol':'1.0-0' }}</h3>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+
+  <!-- 這裡是您之前放錯位置的地方，現在應該是空的了 -->
+
+</div>

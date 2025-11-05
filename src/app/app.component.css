@@ -1,0 +1,42 @@
+nav {
+  background-color: #f4f4f4; /* 淺灰色背景 */
+  padding: 10px 20px;       /* 內距 */
+  display: flex;             /* 使用 Flexbox 進行排版 */
+  align-items: center;       /* 垂直置中對齊 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 增加一點陰影 */
+  margin-bottom: 20px;       /* 增加底部外邊距 */
+}
+
+/* 設定導覽列中所有連結 (a 標籤) 的樣式 */
+nav a {
+  text-decoration: none;  /* 移除底線 */
+  color: #333;            /* 文字顏色 */
+  padding: 5px 15px;      /* 增加點擊區域和間距 */
+  margin: 0 5px;          /* 連結之間的間距 */
+  transition: color 0.3s, background-color 0.3s; /* 加入過渡效果 */
+  border-radius: 4px;     /* 圓角 */
+
+  /* >>>>> 在這裡調整字體大小與粗細 <<<<< */
+  font-size: 18px;        /* 放大字體尺寸 */
+}
+
+/* 設定滑鼠移到連結上時的樣式 */
+nav a:hover {
+  color: #007bff;            /* 藍色：改變文字顏色 */
+  background-color: #e9e9e9; /* 改變背景顏色 */
+}
+
+/* 設定活躍連結 (目前所在頁面) 的樣式，Angular 會自動添加 .router-link-active 這個 class */
+nav a.router-link-active {
+  color: #0056b3;            /* 深藍色 */
+  /* font-weight: bold;     /* 這個已經在上方 nav a 設定過了，所以這裡可以保留或移除 */
+  border-bottom: 2px solid #0056b3; /* 深藍色：底部加一條線 */
+}
+
+nav {
+  background-color: #f4f4f4;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

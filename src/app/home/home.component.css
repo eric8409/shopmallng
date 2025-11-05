@@ -1,0 +1,16 @@
+.home-container {
+  padding: 20px;
+}
+
+.navigation-chips {
+  /* 讓 chips 水平排列且有間距 */
+  display: flex;
+  gap: 10px; /* 控制每個 chip 之間的間距 */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.stylish-chip {
+  /* 設定滑鼠游標為手指圖示，表示可點擊 */
+  cursor: pointer;
+}

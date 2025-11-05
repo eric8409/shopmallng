@@ -1,0 +1,113 @@
+<div class="product-container">
+
+  <!-- 搜尋表單 -->
+  <mat-card class="search-form-card">
+    <mat-card-header>
+      <mat-card-title>搜尋商品</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+        <div class="form-section">
+          <!-- ... (商品類型、排序方式、排序大小欄位保持不變) ... -->
+          <!-- 商品類型 -->
+          <mat-form-field appearance="fill">
+            <mat-label>商品類型</mat-label>
+            <mat-select name="category" [(ngModel)]="selectedCategory" required>
+              <mat-option *ngFor="let cat of categories" [value]="cat.cate">{{cat.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- 排序方式 -->
+          <mat-form-field appearance="fill">
+            <mat-label>排序方式</mat-label>
+            <mat-select name="select" [(ngModel)]="selectedSelect" required>
+              <mat-option *ngFor="let select of selects" [value]="select.sort">{{select.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- 排序大小 -->
+          <mat-form-field appearance="fill">
+            <mat-label>排序大小</mat-label>
+            <mat-select name="sort" [(ngModel)]="selectedSort" required>
+              <mat-option *ngFor="let sor of sorts" [value]="sor.sort">{{sor.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit" class="large-button">搜尋</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+<div *ngIf="items && items.length > 0">
+  <h2>商品列表</h2>
+  <!-- ... (mat-table 內容保持不變) ... -->
+  <mat-table [dataSource]="items" class="product-table">
+
+    <!-- ... (所有 ng-container matColumnDef 保持不變) ... -->
+    <ng-container matColumnDef="product_Id">
+      <mat-header-cell *matHeaderCellDef> 商品 ID </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.product_Id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="product_Name">
+      <mat-header-cell *matHeaderCellDef> 商品名稱 </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.product_Name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> 商品類型 </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.category }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> 價格 </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.price }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <mat-header-cell *matHeaderCellDef> 庫存 </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.stock }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="create_date">
+      <mat-header-cell *matHeaderCellDef> 創建日期 </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.create_date }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="image_url">
+      <mat-header-cell *matHeaderCellDef> 圖片 </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        <img [src]="item.image_url" alt="{{ item.product_Name }}" class="mat-table-image">
+      </mat-cell>
+    </ng-container>
+
+    <!-- 新增：動作欄位，包含數量輸入框和按鈕 -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> 動作 </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        <!-- 確認這個 div 容器存在 -->
+        <div class="actions-cell">
+          <mat-form-field appearance="fill">
+            <mat-label>數量</mat-label>
+            <input matInput type="number" [(ngModel)]="item.quantity" name="quantity-{{item.product_Id}}" min="1" [max]="item.stock">
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="addToCart(item, item.quantity)" class="add-to-cart-button" aria-label="加入購物車" matTooltip="加入購物車">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns;"
+      (click)="selectRow(row)"
+      [class.selected-row]="selectedRow === row">
+    </mat-row>
+  </mat-table>
+</div>
+
+
